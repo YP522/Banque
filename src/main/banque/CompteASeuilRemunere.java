@@ -1,2 +1,5 @@
-package src.main.banque;public class CompteASeuilRemunere {
+package src.main.banque;
+
+public class CompteASeuilRemunere extends CompteRemunere{
+
 }

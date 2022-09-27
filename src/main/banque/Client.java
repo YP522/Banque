@@ -11,22 +11,12 @@ public class Client {
 
     private Compte[] comptes;
 
-    private int nbComptes;
-
-    public int getNbComptes() {
-        return nbComptes;
-    }
-
-    public void setNbComptes(int nbComptes) {
-        this.nbComptes = nbComptes;
-    }
-
     public Client(String nom, String prenom, int age, int numero) {
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
         this.numero = numero;
-        this.comptes = new Compte[nbComptes];
+        this.comptes = new Compte[5];
     }
 
     public String getNom() {
@@ -66,22 +56,27 @@ public class Client {
     }
 
     public Compte getCompte(int numero) {
-        for (Compte compte : comptes) {
-            if (Objects.equals(compte.getNumero(), numero)) {
+        for (Compte compte : this.comptes) {
+            if(compte.getNumero() == numero){
                 return compte;
             }
         }
+        System.err.println("Pas de compte enregistrée avec ce numero");
         return null;
     }
 
     public void setComptes(Compte[] comptes) {
-        this.comptes = comptes;
+        if(comptes.length<=5) {
+            this.comptes = comptes;
+        }
+        System.err.println("Maximum de compte atteint");
     }
 
     public void ajouterCompte(Compte compte) {
-        if (nbComptes < comptes.length) {
-            comptes[nbComptes] = compte;
-            nbComptes++;
+        for(int i=0; i<this.comptes.length; i++){
+            if(this.comptes[i]==null){
+                this.comptes[i] = compte;
+            }
         }
     }
 
@@ -93,7 +88,6 @@ public class Client {
                 ", age=" + age +
                 ", numero=" + numero +
                 ", comptes=" + Arrays.toString(comptes) +
-                ", nbComptes=" + nbComptes +
                 '}';
     }
 
@@ -102,13 +96,14 @@ public class Client {
         if (this == o) return true;
         if (!(o instanceof Client)) return false;
         Client client = (Client) o;
-        return getAge() == client.getAge() && getNumero() == client.getNumero() && getNbComptes() == client.getNbComptes() && Objects.equals(getNom(), client.getNom()) && Objects.equals(getPrenom(), client.getPrenom()) && Arrays.equals(getComptes(), client.getComptes());
+        return getAge() == client.getAge() && getNumero() == client.getNumero() && Objects.equals(getNom(), client.getNom()) && Objects.equals(getPrenom(), client.getPrenom()) && Arrays.equals(getComptes(), client.getComptes());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getNom(), getPrenom(), getAge(), getNumero(), getNbComptes());
+        int result = Objects.hash(getNom(), getPrenom(), getAge(), getNumero());
         result = 31 * result + Arrays.hashCode(getComptes());
         return result;
     }
+
 }

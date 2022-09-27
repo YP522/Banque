@@ -4,6 +4,10 @@ public class CompteRemunere {
     private double taux;
     private double solde;
 
+    public CompteRemunere() {
+        this(0.0,0.0);
+    }
+
     public CompteRemunere(double taux, double solde) {
         this.taux = taux;
         this.solde = solde;

@@ -5,6 +5,15 @@ import java.util.Objects;
 public class Compte {
     private double solde;
     private int numero;
+
+    public Compte(){
+         this(0.0,0);
+    }
+
+    public Compte(int numero){
+        this(0.0,numero);
+    }
+
     public Compte(double solde, int numero) {
         this.solde = solde;
         this.numero = numero;
