@@ -1,7 +1,7 @@
 package src.main.banque;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
     private String nom;
@@ -9,14 +9,14 @@ public class Client {
     private int age;
     private int numero;
 
-    private Compte[] comptes;
+    private List<Compte> comptes;
 
     public Client(String nom, String prenom, int age, int numero) {
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
         this.numero = numero;
-        this.comptes = new Compte[5];
+        this.comptes = new ArrayList<>();
     }
 
     public String getNom() {
@@ -51,7 +51,7 @@ public class Client {
         this.numero = numero;
     }
 
-    public Compte[] getComptes() {
+    public List<Compte> getComptes() {
         return comptes;
     }
 
@@ -67,18 +67,18 @@ public class Client {
 
     public void setComptes(Compte[] comptes) {
         if(comptes.length<=5) {
-            this.comptes = comptes;
+            this.comptes = List.of(comptes);
         }
         System.err.println("Maximum de compte atteint");
     }
 
-    public void ajouterCompte(Compte compte) {
-        for(int i=0; i<this.comptes.length; i++){
-            if(this.comptes[i]==null){
-                this.comptes[i] = compte;
-            }
+    public void ajouterCompte(Compte unCompte) throws BanqueException {
+        if (this.comptes.size() >= 5) {
+            throw new BanqueException("Le tableau est plein !");
         }
+        this.comptes.add(unCompte);
     }
+
 
     @Override
     public String toString() {
@@ -87,23 +87,20 @@ public class Client {
                 ", prenom='" + prenom + '\'' +
                 ", age=" + age +
                 ", numero=" + numero +
-                ", comptes=" + Arrays.toString(comptes) +
+                ", comptes=" + comptes +
                 '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Client)) return false;
-        Client client = (Client) o;
-        return getAge() == client.getAge() && getNumero() == client.getNumero() && Objects.equals(getNom(), client.getNom()) && Objects.equals(getPrenom(), client.getPrenom()) && Arrays.equals(getComptes(), client.getComptes());
+    public boolean equals(Object obj) {
+        if (this == obj) { return true; } if ((obj == null) || (this.getClass() != obj.getClass())) { return false; } var other = (Client) obj; if (this.numero != other.numero) { return false; } return true;
     }
+
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getNom(), getPrenom(), getAge(), getNumero());
-        result = 31 * result + Arrays.hashCode(getComptes());
-        return result;
+        return (this.getClass().getName() + "_" + this.getNumero()).hashCode();
     }
+
 
 }

@@ -1,8 +1,11 @@
 package src.main.banque;
 
 public interface ICompteRemunere {
-    public double calculerInterets();
-    public void verserInterets();
-    public double getTaux();
-    public void setTaux(double taux);
+    public abstract double calculerInterets();
+
+    public abstract void verserInterets();
+
+    public abstract double getTaux();
+
+    public abstract void setTaux(double taux);
 }

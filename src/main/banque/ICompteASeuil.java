@@ -1,7 +1,7 @@
 package src.main.banque;
 
 public interface ICompteASeuil {
-    public void retirer(double uneValeur);
+    public void retirer(double montant) throws BanqueException;
     public double getSeuil();
-    public void setSeuil(double unSeuil);
+    public void setSeuil(double seuil);
 }

@@ -7,14 +7,14 @@ public class Compte {
     private int numero;
 
     public Compte(){
-         this(0.0,0);
+         this(-1,0.0);
     }
 
     public Compte(int numero){
-        this(0.0,numero);
+        this(numero, 0.0);
     }
 
-    public Compte(double solde, int numero) {
+    public Compte(int numero, double solde) {
         this.solde = solde;
         this.numero = numero;
     }
@@ -33,9 +33,10 @@ public class Compte {
     public void ajouter(double montant) {
         this.solde += montant;
     }
-    public void retirer(double montant) {
-        this.solde -= montant;
+    public void retirer(double montant) throws BanqueException {
+        this.setSolde(this.getSolde() - montant);
     }
+
 
     @java.lang.Override
     public java.lang.String toString() {
@@ -45,13 +46,21 @@ public class Compte {
                 '}';
     }
 
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Compte)) return false;
-        if (!super.equals(object)) return false;
-        Compte cp = (Compte) object;
-        return java.lang.Double.compare(cp.getSolde(), getSolde()) == 0 && getNumero() == cp.getNumero();
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof Compte) {
+            Compte c = (Compte) obj;
+            return this.getNumero() == c.getNumero();
+        }
+        return false;
     }
+
 
     public int hashCode() {
         return Objects.hash(super.hashCode(), getSolde(), getNumero());

@@ -1,41 +1,31 @@
 package src.main.banque;
 
-public class CompteASeuil {
+public class CompteASeuil extends Compte implements ICompteASeuil {
     private double seuil;
-    private double solde;
-    public CompteASeuil(double seuil, double solde) {
-        this.seuil = seuil;
-        this.solde = solde;
-    }
-    public void retirer(double montant) {
-        if (solde - montant < seuil) {
-            System.out.println("Solde insuffisant");
-        } else {
-            solde -= montant;
-        }
+
+    public CompteASeuil() {
+        this(-1, 0D, 0D);
     }
 
+    public CompteASeuil(int numero, double solde, double seuil) {
+        super(numero, solde);
+        this.setSeuil(seuil);
+    }
+
+    @Override
     public double getSeuil() {
-        return seuil;
+        return this.seuil;
     }
 
+    @Override
     public void setSeuil(double seuil) {
         this.seuil = seuil;
-    }
-
-    public double getSolde() {
-        return solde;
-    }
-
-    public void setSolde(double solde) {
-        this.solde = solde;
     }
 
     @Override
     public String toString() {
         return "CompteASeuil{" +
                 "seuil=" + seuil +
-                ", solde=" + solde +
                 '}';
     }
 }
