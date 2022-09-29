@@ -34,17 +34,17 @@ public class Main {
         CompteASeuilRemunere casr = new CompteASeuilRemunere(5,7000,0.1,500);
         Jean.ajouterCompte(casr);
 
-        Compte[] compteJean = Jean.getComptes().toArray(new Compte[0]);
-        System.out.println(Arrays.toString(compteJean));
+        Compte compteJean = new Compte();
+//        System.out.println(Arrays.toString(compteJean));
 
-        for(Compte cp : compteJean){
-            if(cp instanceof CompteRemunere){
-                CompteRemunere cr = (CompteRemunere) cp;
-                cr.verserInterets();
-            }
-        }
+//        for(Compte cp : compteJean){
+//            if(cp instanceof CompteRemunere){
+//                CompteRemunere cr = (CompteRemunere) cp;
+//                cr.verserInterets();
+//            }
+//        }
 
-        System.out.println(Arrays.toString(compteJean));
+        System.out.println(compteJean);
 //        try {
             Jean.getCompte(5).retirer(77000);
 //        }catch (){
